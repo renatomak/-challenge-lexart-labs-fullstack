@@ -47,7 +47,7 @@ const Form = () => {
         </Col>
         <Col>
           <Button variant="primary" onClick={handleClick}>
-            Primary
+            Buscar
           </Button>
         </Col>
       </Row>

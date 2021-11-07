@@ -1,7 +1,7 @@
 const { ObjectId } = require("mongodb");
 const { connection } = require("../config/conn");
 
-const COLLECTION_NAME = "userSearch";
+const COLLECTION_NAME = "searches";
 
 const createModel = async (search) =>
   connection().then(async (db) => {
@@ -9,7 +9,11 @@ const createModel = async (search) =>
     return search;
   });
 
-const findSearchById = async (id) => {
+const findSearchByWebAndCategory = async (web, category) => {
+  const result = await connection().then((db) =>
+    db.collection(COLLECTION_NAME).findOne({ web, category })
+  );
+  return result;
 };
 
 const updateModel = async (customer) => {
@@ -20,7 +24,7 @@ const deleteModel = async (id) => {
 
 module.exports = {
   createModel,
-  findSearchById,
+  findSearchByWebAndCategory,
   updateModel,
   deleteModel,
 };

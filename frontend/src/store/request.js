@@ -1,3 +1,5 @@
+const headers = { "Content-type": "application/json" };
+
 const generateEndpoint = (category, categoryId, query) => {
   let endpoint = "https://api.mercadolibre.com/sites/MLB/search?category=";
 
@@ -27,8 +29,25 @@ const getProductsByCategoriesAndQuery = (selectCategory, query) => {
     .then((response) => response.json())
     .then((data) => {
       const { results } = data;
-      return results;
+      const newData = results.map(
+        ({ permalink, price, thumbnail, title, id }) => {
+          const product = { permalink, price, thumbnail, title, id };
+          return product;
+        }
+      );
+      return newData;
     });
 };
 
-export { getProductsByCategoriesAndQuery };
+const addUserSearch = (web, category, results) => {
+  const endpoint = "http://localhost:3001/searches/";
+  return fetch(endpoint, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ web, category, results }),
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+};
+
+export { getProductsByCategoriesAndQuery, addUserSearch };

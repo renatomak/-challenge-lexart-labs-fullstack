@@ -20,7 +20,11 @@ const create = rescue(async (req, res) => {
   try {
     const { body: search } = req;
 
-      const createResult = await createService(search);
+    const createResult = await createService(search);
+    
+    if (createResult?.registered) {
+      return res.status(STATUS_400_BAD_REQUEST).json({ message: "Search already performed before"});
+    }
       
       console.log(createResult)
 

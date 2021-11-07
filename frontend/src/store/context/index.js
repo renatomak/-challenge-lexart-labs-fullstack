@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getProductsByCategoriesAndQuery } from "../request";
+import { addUserSearch, getProductsByCategoriesAndQuery } from "../request";
 import SearchProductsContext from "./context";
 
 export const GELADEIRA = { categoryId: "MLB5726", category: "geladeira" };
@@ -19,6 +19,10 @@ const Provider = ({ children }) => {
   useEffect(() => {
     getListProducts(selectCategory);
   }, []);
+
+  useEffect(() => {
+    addUserSearch("MBL", selectCategory.categoryId, products);
+  }, [products])
 
   const contextValues = {
     products,
