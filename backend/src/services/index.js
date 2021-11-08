@@ -3,6 +3,7 @@ const {
   updateModel,
   deleteModel,
   findSearchByWebAndCategory,
+  findAllSearch,
 } = require("../models");
 
 const { messageError } = require("../utils");
@@ -22,9 +23,22 @@ const createService = async (search) => {
   }
 };
 
-const readByWebAndCategory = async (web, category) => {
+const readAllServices = async () => {
+  try {
+    const result = await findAllSearch();
+    return result;
+  } catch (error) {
+    throw Error(messageError(error.message, "read searches"));
+  }
+};
 
-
+const readPreviousSearchService = async (web, category) => {
+  try {
+    const result = await findSearchByWebAndCategory(web, category);
+    return result;
+  } catch (error) {
+    throw Error(messageError(error.message, "read searches"));
+  }
 };
 
 const updateService = async (id) => {
@@ -35,7 +49,8 @@ const deleteService = async (id) => {
 
 module.exports = {
   createService,
-  readByWebAndCategory,
+  readAllServices,
   updateService,
   deleteService,
+  readPreviousSearchService,
 };

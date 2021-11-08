@@ -10,7 +10,7 @@ const Cards = () => {
     <Container>
       <Row>
         {products
-          ? products.map((item, index) => (
+          ? products?.map((item, index) => (
               <Col xs={6} md={4} style={{ marginTop: "10px" }} key={index}>
                 <MeyCard product={item} />
               </Col>

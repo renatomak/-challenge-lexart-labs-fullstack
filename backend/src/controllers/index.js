@@ -4,8 +4,9 @@ const {
   readByIdService,
   updateService,
   deleteService,
-  readAllService,
+  readAllServices,
   readAllCustomersService,
+  readPreviousSearchService,
 } = require("../services");
 const {
   STATUS_400_BAD_REQUEST,
@@ -38,6 +39,33 @@ const create = rescue(async (req, res) => {
 });
 
 const read = rescue(async (_req, res) => {
+  try {
+    const result = await readAllServices();
+
+    return res.status(STATUS_200_OK).json(result);
+  } catch (error) {
+    console.error(error.message);
+    return res
+      .status(STATUS_404_NOT_FOUND)
+      .json({ message: "Invalid fields" });
+  }
+});
+
+const readPreviousSearch = rescue(async (req, res) => {
+  try {
+    const { web, category } = req.params;
+
+    const result = await readPreviousSearchService(web, category);
+
+    if (!result) {
+      throw new Error();
+    }
+
+    return res.status(STATUS_200_OK).json(result);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(STATUS_404_NOT_FOUND).json({ message: "Invalid fields", results: false });
+  }
 });
 
 const update = rescue(async (req, res) => {
@@ -51,4 +79,5 @@ module.exports = {
   read,
   update,
   deleteUser,
+  readPreviousSearch,
 };

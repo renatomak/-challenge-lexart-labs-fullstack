@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { addUserSearch, getProductsByCategoriesAndQuery } from "../request";
+import {
+  addUserSearch,
+  getProductsByCategoriesAndQuery,
+  getProductsInPreviousSearch,
+} from "../request";
 import SearchProductsContext from "./context";
 
 export const GELADEIRA = { categoryId: "MLB5726", category: "geladeira" };
@@ -13,7 +17,11 @@ const Provider = ({ children }) => {
   const [selectCategory, setSelectCategory] = useState(initialState);
 
   const getListProducts = async (categories, query) => {
-    const results = await getProductsByCategoriesAndQuery(categories, query);
+    let { results } = await getProductsInPreviousSearch("MBL", categories.categoryId);
+
+    if (!results) {
+      results = await getProductsByCategoriesAndQuery(categories, query);
+    }
     setProducts(results);
   };
   useEffect(() => {
@@ -22,7 +30,7 @@ const Provider = ({ children }) => {
 
   useEffect(() => {
     addUserSearch("MBL", selectCategory.categoryId, products);
-  }, [products])
+  }, [products]);
 
   const contextValues = {
     products,

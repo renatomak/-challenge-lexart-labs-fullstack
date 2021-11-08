@@ -20,7 +20,6 @@ const Form = () => {
 
   useEffect(() => {
     getListProducts(selectCategory, inputQuery);
-    console.log("PRODUCTS: ", products);
   }, [selectCategory, inputQuery]);
 
   const handleClick = () => {

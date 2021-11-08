@@ -13,6 +13,15 @@ const findSearchByWebAndCategory = async (web, category) => {
   const result = await connection().then((db) =>
     db.collection(COLLECTION_NAME).findOne({ web, category })
   );
+  console.log("result em motel: ", result);
+  return result;
+};
+
+const findAllSearch = async () => {
+  
+  const result = connection().then(db =>
+    db.collection(COLLECTION_NAME).find().toArray())
+    console.log("result em motel: ", result)
   return result;
 };
 
@@ -27,4 +36,5 @@ module.exports = {
   findSearchByWebAndCategory,
   updateModel,
   deleteModel,
+  findAllSearch,
 };
