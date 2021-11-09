@@ -17,16 +17,20 @@ const Provider = ({ children }) => {
   const [selectCategory, setSelectCategory] = useState(initialState);
 
   const getListProducts = async (categories, query) => {
-    const results = await getProductsByCategoriesAndQuery(categories, query);
+    let { results } = await getProductsInPreviousSearch("MBL", categories.categoryId);
+
+    if (!results) {
+      results = await getProductsByCategoriesAndQuery(categories, query);
+    }
     setProducts(results);
   };
   useEffect(() => {
     getListProducts(selectCategory);
   }, []);
 
-  // useEffect(() => {
-  //   addUserSearch("MBL", selectCategory.categoryId, products);
-  // }, [products]);
+  useEffect(() => {
+    addUserSearch("MBL", selectCategory.categoryId, products);
+  }, [products]);
 
   const contextValues = {
     products,
