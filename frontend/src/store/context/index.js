@@ -24,9 +24,9 @@ const Provider = ({ children }) => {
     getListProducts(selectCategory);
   }, []);
 
-  useEffect(() => {
-    addUserSearch("MBL", selectCategory.categoryId, products);
-  }, [products]);
+  // useEffect(() => {
+  //   addUserSearch("MBL", selectCategory.categoryId, products);
+  // }, [products]);
 
   const contextValues = {
     products,
