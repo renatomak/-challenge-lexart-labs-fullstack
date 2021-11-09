@@ -17,7 +17,11 @@ const Provider = ({ children }) => {
   const [selectCategory, setSelectCategory] = useState(initialState);
 
   const getListProducts = async (categories, query) => {
-    let { results } =  await getProductsByCategoriesAndQuery(categories, query);
+    let { results } = await getProductsInPreviousSearch("MBL", categories.categoryId);
+
+    if (!results) {
+      results = await getProductsByCategoriesAndQuery(categories, query);
+    }
     setProducts(results);
   };
   useEffect(() => {

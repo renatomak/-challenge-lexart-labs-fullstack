@@ -1,7 +1,12 @@
+import React from "react";
+import { Container } from "react-bootstrap";
+import Home from "./pages/Home";
+
 function App() {
   return (
-    <div>
-    </div>
+    <Container style={{ marginTop: "10px" }}>
+      <Home />
+    </Container>
   );
 }
 
