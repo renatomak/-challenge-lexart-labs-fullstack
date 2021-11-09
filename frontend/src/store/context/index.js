@@ -17,7 +17,7 @@ const Provider = ({ children }) => {
   const [selectCategory, setSelectCategory] = useState(initialState);
 
   const getListProducts = async (categories, query) => {
-    let { results } = await getProductsByCategoriesAndQuery(categories, query);
+    const results = await getProductsByCategoriesAndQuery(categories, query);
     setProducts(results);
   };
   useEffect(() => {

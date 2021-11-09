@@ -20,7 +20,7 @@ const getProductsByCategoriesAndQuery = (selectCategory, query) => {
   const category = selectCategory?.category;
 
   const endpoint = generateEndpoint(category, categoryId, query);
-
+  console.log("ENDPOINT: ", endpoint);
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
