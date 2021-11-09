@@ -1,12 +1,16 @@
 const { MongoClient } = require('mongodb');
 
 const DB_NAME = process.env.DB_NAME || "lexart-labs";
-// const MONGO_DB_URL =
-//   process.env.MONGO_DB_URL || `mongodb://localhost:27017/${DB_NAME}`;
-const MONGO_DB_URL = `mongodb://mongodb:27017/${DB_NAME}`;
+const MONGO_URL =
+  process.env.MONGO_URL || `mongodb://localhost:27017/${DB_NAME}`;
+
+
+// const MONGO_URL = `mongodb://mongodb:27017/${DB_NAME}`;
+
+// mongodb+srv://root:<password>@cluster0.mkm8g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 const connection = () =>
-  MongoClient.connect(MONGO_DB_URL, {
+  MongoClient.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
